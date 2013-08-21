@@ -288,8 +288,11 @@ angular.module('btford.dragon-drop', []).
             } 
             dragDuplicate = duplicate;
 
-            offsetX = ((ev.pageX || ev.originalEvent.touches[0].pageX) - offset.left);
-            offsetY = ((ev.pageY || ev.originalEvent.touches[0].pageY) - offset.top);
+            var posX = ((ev.pageX || (ev.clientX + document.body.scrollLeft + document.documentElement.scrollLeft) || ev.originalEvent.touches[0].pageX));
+            var posX = ((ev.pageY || (ev.clientY + document.body.scrollTop + document.documentElement.scrollTop) || ev.originalEvent.touches[0].pageY));
+
+            offsetX = (posX - offset.left);
+            offsetY = (posY - offset.top);
 
             spawnFloaty();
             drag(ev);
