@@ -161,7 +161,7 @@ angular.module('btford.dragon-drop', []).
 
         $rootScope.$apply(function () {
             if (!dragDuplicate) {
-              remove(dragOrigin, dragKey || dragOrigin.indexOf(dragValue));
+              remove(dragOrigin, dragKey || _.indexOf(dragOrigin, dragValue));
             }          
           add(targetList, dragValue, dragKey);
         });
@@ -169,7 +169,7 @@ angular.module('btford.dragon-drop', []).
         // no dropArea here
         // put item back to origin
         $rootScope.$apply(function () {
-            remove(dragOrigin, dragKey || dragOrigin.indexOf(dragValue));
+            remove(dragOrigin, dragKey || _.indexOf(dragOrigin, dragValue));
             add(dragOrigin, dragValue, dragKey);
         });
       }
