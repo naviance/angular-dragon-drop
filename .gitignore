@@ -1,2 +1,6 @@
 ## MAC files ##
 .DS_Store
+
+## Eclipse Project files ##
+.project
+.settings/
