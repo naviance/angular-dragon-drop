@@ -243,6 +243,7 @@ angular.module('btford.dragon-drop', []).
           };
 
           elt.bind('mousedown', function (ev) {
+            ev.preventDefault();
             var isIpad = navigator.userAgent.indexOf("iPad") != -1;
             if (!isIpad) {
               mouseReleased = false;
@@ -250,6 +251,7 @@ angular.module('btford.dragon-drop', []).
           });
           
           elt.bind('mousemove', function(ev) {
+            ev.preventDefault();
             var isIpad = navigator.userAgent.indexOf("iPad") != -1;
             if (!isIpad) {
               if(dragValue || mouseReleased) {
