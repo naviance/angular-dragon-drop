@@ -7,7 +7,7 @@
 'use strict';
 
 angular.module('btford.dragon-drop', []).
-  directive('btfDragon', function ($document, $compile, $rootScope) {
+  directive('btfDragon', ["$document", "$compile", "$rootScope", function ($document, $compile, $rootScope) {
     /*
              ^                       ^
              |\   \        /        /|
@@ -40,6 +40,7 @@ angular.module('btford.dragon-drop', []).
       dragKey,
       dragOrigin,
       dragDuplicate = false,
+      mouseReleased = true,
       floaty,
       offsetX,
       offsetY;
@@ -130,6 +131,8 @@ angular.module('btford.dragon-drop', []).
     };
 
     $document.bind('mouseup', function (ev) {
+      mouseReleased = true;
+
       if (!dragValue) {
         return;
       }
@@ -240,12 +243,21 @@ angular.module('btford.dragon-drop', []).
           };
 
           elt.bind('mousedown', function (ev) {
+            ev.preventDefault();
             var isIpad = navigator.userAgent.indexOf("iPad") != -1;
             if (!isIpad) {
-              if (dragValue) {
+              mouseReleased = false;
+            }
+          });
+          
+          elt.bind('mousemove', function(ev) {
+            ev.preventDefault();
+            var isIpad = navigator.userAgent.indexOf("iPad") != -1;
+            if (!isIpad) {
+              if(dragValue || mouseReleased) {
                 return;
               }
-              
+
               // find the right parent
               var originElement = angular.element(ev.target);
               var originScope = originElement.scope();
@@ -291,4 +303,4 @@ angular.module('btford.dragon-drop', []).
         };
       }
     };
-  });
+  }]);
